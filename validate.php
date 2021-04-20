@@ -95,12 +95,13 @@ if(isset($_POST['login'])){
     else
     {
         $row=mysqli_fetch_array($result);
+        
         $username = $row['username'];
         $count=mysqli_num_rows($result);
         if($count==1)
         {
             
-                if($row['email_address'] == 'admin@gmail.com' && $row['password'] == 'c12b240b5710c6c9ee00ef4529803aac'){
+                if($row['email_address'] == 'admin@gmail.com' && $row['password'] == '636d7aaea68a14a199c8560fcc77bc08'){
                         $_SESSION['username']=$username;
                         $_SESSION['email_address'] = $email_address;
                         header('location:admin_page.php');
@@ -110,6 +111,7 @@ if(isset($_POST['login'])){
                         header('location:profile.php');
                     }
         }else{
+                
                 echo '<script type="text/javascript">';
                 echo 'setTimeout(function () { sweetAlert("Oops...","Wrong username or Password!...","error");';
                 echo '}, 500);</script>';

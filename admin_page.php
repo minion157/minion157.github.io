@@ -25,14 +25,24 @@
 			$row = mysqli_fetch_array($results);
 			$song_id = $row['song_id'];
 			$song_name = $row['song_name'];
+            $file_name = $row['audio_file'];
 
 			$sql = "DELETE FROM upload_albums WHERE song_name = '$song_name' ";
+            $sql2 = "DELETE FROM favorite_songs WHERE song_name = '$song_name' ";
+            
 			$results = mysqli_query($conn,$sql);
 
 			if($results){
+
+                $results1 = mysqli_query($conn,$sql2);
+                $path = "songs/uploaded_songs/$file_name";
+                if(!unlink($path))
+                {
+                    echo "cannot be deleted due to an error"; 
+                }
 				echo '<script type="text/javascript">';
                 echo 'setTimeout(function () { sweetAlert("Deleted"," <b>Song '.$song_name.' is deleted from uploaded songs</b>","success");';
-				echo '}, 500);</script>';
+                echo '}, 500);</script>';
 			}else{
 				echo '<script type="text/javascript">';
             	echo 'setTimeout(function () { sweetAlert("Oops...","<b> Error while deleting.Please check your internet coonection!</b>","error");';
